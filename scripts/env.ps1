@@ -59,7 +59,6 @@ Write-Host "================================" -ForegroundColor Cyan
 # Check for admin if System scope requested
 if ($System -and -NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
     Write-Host "Administrator privileges required for System PATH." -ForegroundColor Red
-    Read-Host "Press Enter to exit"
     exit 1
 }
 
@@ -71,24 +70,19 @@ if (-not $PathToAdd) {
 
 if (-not $PathToAdd) {
     Write-Host "No path provided. Exiting." -ForegroundColor Red
-    Read-Host "Press Enter to exit"
     exit 1
 }
 
 # Expand environment variables in path
 $PathToAdd = [Environment]::ExpandEnvironmentVariables($PathToAdd)
-
 # Convert relative path to absolute path
-if (-not [System.IO.Path]::IsPathRooted($PathToAdd)) {
-    $PathToAdd = Resolve-Path $PathToAdd -ErrorAction SilentlyContinue
-    if (-not $PathToAdd) {
-        Write-Host "Error: Could not resolve relative path." -ForegroundColor Red
-        Read-Host "Press Enter to exit"
-        exit 1
-    }
-    $PathToAdd = $PathToAdd.Path
-    Write-Host "Resolved to: $PathToAdd" -ForegroundColor Gray
+$PathToAdd = Resolve-Path $PathToAdd
+if (-not $PathToAdd) {
+    Write-Host "Error: Could not resolve relative path." -ForegroundColor Red
+    exit 1
 }
+Write-Host "Resolved to: $PathToAdd" -ForegroundColor Gray
+
 
 # Choose scope if not specified
 if (-not $System -and -not $User) {
@@ -102,7 +96,6 @@ if (-not $System -and -not $User) {
         # Check admin
         if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
             Write-Host "Administrator privileges required for System PATH." -ForegroundColor Red
-            Read-Host "Press Enter to exit"
             exit 1
         }
     } else {

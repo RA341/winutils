@@ -3,7 +3,6 @@
 # Check if running as Administrator
 if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
     Write-Host "This script requires Administrator privileges. Please run as Administrator." -ForegroundColor Red
-    Read-Host "Press Enter to exit"
     exit 1
 }
 
@@ -54,7 +53,6 @@ Write-Host "`nCompacting all files..." -ForegroundColor Yellow
 $response = Read-Host "Continue? (y/N)"
 if ($response -notmatch '^[Yy]') {
     Write-Host "Cancelled." -ForegroundColor Yellow
-    Read-Host "Press Enter to exit"
     exit 0
 }
 

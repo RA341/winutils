@@ -4,7 +4,6 @@
 # Check if running as Administrator
 if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
     Write-Host "This script requires Administrator privileges. Please run as Administrator." -ForegroundColor Red
-    Read-Host "Press Enter to exit"
     exit 1
 }
 
@@ -40,7 +39,6 @@ Write-Host "Current temp files: $sizeMB MB" -ForegroundColor Cyan
 $response = Read-Host "`nDelete temp files? (y/N)"
 if ($response -notmatch '^[Yy]') {
     Write-Host "Cancelled." -ForegroundColor Yellow
-    Read-Host "Press Enter to exit"
     exit 0
 }
 
@@ -83,5 +81,3 @@ foreach ($location in $tempLocations) {
 $savedMB = [math]::Round(($totalSizeBefore - $totalSizeAfter) / 1MB, 2)
 Write-Host "`nCleaning complete!" -ForegroundColor Green
 Write-Host "Space freed: $savedMB MB" -ForegroundColor Green
-
-Read-Host "Press Enter to exit"
