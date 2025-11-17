@@ -78,6 +78,18 @@ if (-not $PathToAdd) {
 # Expand environment variables in path
 $PathToAdd = [Environment]::ExpandEnvironmentVariables($PathToAdd)
 
+# Convert relative path to absolute path
+if (-not [System.IO.Path]::IsPathRooted($PathToAdd)) {
+    $PathToAdd = Resolve-Path $PathToAdd -ErrorAction SilentlyContinue
+    if (-not $PathToAdd) {
+        Write-Host "Error: Could not resolve relative path." -ForegroundColor Red
+        Read-Host "Press Enter to exit"
+        exit 1
+    }
+    $PathToAdd = $PathToAdd.Path
+    Write-Host "Resolved to: $PathToAdd" -ForegroundColor Gray
+}
+
 # Choose scope if not specified
 if (-not $System -and -not $User) {
     Write-Host "`nAdd to:" -ForegroundColor Yellow
@@ -113,5 +125,3 @@ if ($added) {
 } else {
     Write-Host "`nNo changes made." -ForegroundColor Yellow
 }
-
-Read-Host "`nPress Enter to exit"

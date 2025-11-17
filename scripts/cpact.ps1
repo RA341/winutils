@@ -81,4 +81,3 @@ exit
 }
 
 Write-Host "`nAll files compacted successfully!" -ForegroundColor Green
-Read-Host "Press Enter to exit"

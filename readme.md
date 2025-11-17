@@ -2,7 +2,12 @@
 
 a collection of pwsh scripts for windows
 
+## Installtion
 
+Prequisites
+
+- Git
+- Windows
 
 ## Env 
 
