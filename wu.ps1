@@ -172,7 +172,7 @@ function Remove-Script {
 function Show-Scripts {
     $scripts = Get-Scripts
     
-    Write-Host "`nWU Script Manager - Available Commands" -ForegroundColor Cyan
+    Write-Host "`nWinutils - Available Aliases" -ForegroundColor Cyan
     Write-Host "=======================================" -ForegroundColor Cyan
     Write-Host ""
     
@@ -189,11 +189,11 @@ function Show-Scripts {
     }
     
     Write-Host "`nManagement Commands:" -ForegroundColor Cyan
+    Write-Host "  wu list                       - Show this list" -ForegroundColor Gray
     Write-Host "  wu add <alias> <path> [desc]  - Add a new script" -ForegroundColor Gray
     Write-Host "  wu remove <alias>             - Remove a script" -ForegroundColor Gray
-    Write-Host "  wu list                       - Show this list" -ForegroundColor Gray
     Write-Host "  wu edit <alias>               - Edit script location" -ForegroundColor Gray
-    Write-Host "  wu update                     - Update scripts from git repo" -ForegroundColor Gray
+    Write-Host "  wu update                     - Update scripts from main git repo" -ForegroundColor Gray
     Write-Host ""
 }
 
